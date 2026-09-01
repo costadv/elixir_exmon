@@ -3,7 +3,7 @@ defmodule ExMon.Game.Actions do
   alias ExMon.Game.Actions.Attack
 
   def fetch_move(move) do
-    ExMon.Game.player()
+    ExMon.Game.fetch_player()
     |> Map.get(:moves)
     |> find_move(move)
   end
@@ -19,8 +19,8 @@ defmodule ExMon.Game.Actions do
   #def attack(:heal), do: "Cura! Curou 18 a 25 de vida"
   def attack(move) do
     case Game.turn() do
-      :player -> Attack.attack_opponent()
-      :computer -> "attack player"
+      :player -> Attack.attack_opponent(:computer, move)
+      :computer -> Attack.attack_opponent(:player, move)
     end
 
   end
