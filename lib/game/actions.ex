@@ -3,7 +3,7 @@ defmodule ExMon.Game.Actions do
   alias ExMon.Game.Actions.Attack
 
   def fetch_move(move) do
-    ExMon.Game.fetch_player()
+    ExMon.Game.player()
     |> Map.get(:moves)
     |> find_move(move)
   end
