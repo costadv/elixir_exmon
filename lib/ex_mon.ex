@@ -1,5 +1,6 @@
 defmodule ExMon do
   alias ExMon.{Game, Player}
+  alias ExMon.Game.Status
 
   @computer_name "Dragon"
 
@@ -11,6 +12,8 @@ defmodule ExMon do
     @computer_name
     |> Player.build(:slash, :breath, :regen)
     |> Game.start(player)
+
+    Status.print_round_message()
   end
 
 end
