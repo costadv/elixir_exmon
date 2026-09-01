@@ -1,7 +1,6 @@
 defmodule ExMon do
-  alias Game.Actions
   alias ExMon.{Game, Player}
-  alias ExMon.Game.Status
+  alias ExMon.Game.{Actions, Status}
 
   @computer_name "Dragon"
 
@@ -19,6 +18,7 @@ defmodule ExMon do
 
   def make_move(move) do
     Actions.fetch_move(move)
+    |> IO.inspect()
     |> execute_move()
   end
 
