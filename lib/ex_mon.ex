@@ -17,11 +17,11 @@ defmodule ExMon do
   end
 
   def make_move(move) do
-    Actions.fetch_move(move)
-    |> IO.inspect()
-    |> execute_move()
+    move
+    |> Actions.fetch_move()
+    |> do_move()
   end
 
-  def execute_move({:ok, move}), do: Actions.attack(move)
-  def execute_move({:error, move}), do: "#{move} is an invalid attack."
+  defp do_move({:ok, move}), do: Actions.attack(move)
+  defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
 end
