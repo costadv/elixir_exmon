@@ -1,4 +1,6 @@
 defmodule ExMon.Game.Actions do
+  alias ExMon.Game
+  alias ExMon.Game.Actions.Attack
 
   def fetch_move(move) do
     ExMon.Game.player()
@@ -12,7 +14,14 @@ defmodule ExMon.Game.Actions do
     end)
   end
 
-  def attack(:avg), do: "Dano médio! Causou 18 a 25 de dano"
-  def attack(:rnd), do: "Dano Aleatório! Causou 10 a 32 de dano"
-  def attack(:heal), do: "Cura! Curou 18 a 25 de vida"
+  #def attack(:avg), do: "Dano médio! Causou 18 a 25 de dano"
+  #def attack(:rnd), do: "Dano Aleatório! Causou 10 a 32 de dano"
+  #def attack(:heal), do: "Cura! Curou 18 a 25 de vida"
+  def attack(move) do
+    case Game.turn() do
+      :player -> Attack.attack_opponent()
+      :computer -> "attack player"
+    end
+
+  end
 end

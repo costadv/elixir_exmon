@@ -22,6 +22,9 @@ defmodule ExMon do
     |> do_move()
   end
 
-  defp do_move({:ok, move}), do: Actions.attack(move)
   defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
+  defp do_move({:ok, move}) do
+    Actions.attack(move)
+  end
+
 end
