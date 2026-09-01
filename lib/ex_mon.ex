@@ -1,4 +1,5 @@
 defmodule ExMon do
+  alias Game.Actions
   alias ExMon.{Game, Player}
   alias ExMon.Game.Status
 
@@ -16,4 +17,11 @@ defmodule ExMon do
     Status.print_round_message()
   end
 
+  def make_move(move) do
+    Actions.fetch_move(move)
+    |> execute_move()
+  end
+
+  def execute_move({:ok, move}), do: Actions.attack(move)
+  def execute_move({:error, move}), do: "#{move} is an invalid attack."
 end
