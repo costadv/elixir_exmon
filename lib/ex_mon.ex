@@ -20,6 +20,8 @@ defmodule ExMon do
     move
     |> Actions.fetch_move()
     |> do_move()
+
+    make_computer_move()
   end
   def make_computer_move() do
     move = Actions.fetch_computer_move()
