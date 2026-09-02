@@ -10,7 +10,7 @@ defmodule ExMon do
 
   def start_game(player) do
     @computer_name
-    |> Player.build(:slash, :breath, :regen)
+    |> Player.build(:avg, :rnd, :heal)
     |> Game.start(player)
 
     Status.print_round_message(Game.info())
@@ -21,11 +21,15 @@ defmodule ExMon do
     |> Actions.fetch_move()
     |> do_move()
   end
+  def make_computer_move() do
+    move = Actions.fetch_computer_move()
+    do_move({:ok, move})
+  end
 
   defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
   defp do_move({:ok, move}) do
     case move do
-      :heal -> "realiza cura"
+      :heal -> Actions.heal()
       move -> Actions.attack(move)
     end
     Status.print_round_message(Game.info())

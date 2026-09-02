@@ -1,11 +1,21 @@
 defmodule ExMon.Game.Actions do
   alias ExMon.Game
-  alias ExMon.Game.Actions.Attack
+  alias ExMon.Game.Actions.{Heal, Attack}
 
   def fetch_move(move) do
     ExMon.Game.player()
     |> Map.get(:moves)
     |> find_move(move)
+  end
+  def fetch_computer_move() do
+    chance = Enum.random(0..99)
+    cond do
+      chance < 40 -> :avg
+      chance > 39 and chance < 70 -> :rnd
+      chance > 69 -> :heal
+      true -> :avg
+
+    end
   end
 
   def find_move(moves, move) do
@@ -24,4 +34,13 @@ defmodule ExMon.Game.Actions do
     end
 
   end
+
+  def heal() do
+    case Game.turn() do
+      :player -> Heal.heal_self(:player)
+      :computer -> Heal.heal_self(:computer)
+    end
+
+  end
+
 end
