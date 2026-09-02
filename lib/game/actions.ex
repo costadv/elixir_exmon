@@ -7,16 +7,6 @@ defmodule ExMon.Game.Actions do
     |> Map.get(:moves)
     |> find_move(move)
   end
-  def fetch_computer_move() do
-    chance = Enum.random(0..99)
-    cond do
-      chance < 40 -> :avg
-      chance > 39 and chance < 70 -> :rnd
-      chance > 69 -> :heal
-      true -> :avg
-
-    end
-  end
 
   def find_move(moves, move) do
     Enum.find_value(moves, {:error, move}, fn {key, value} ->
