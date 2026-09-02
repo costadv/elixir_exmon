@@ -15,6 +15,8 @@ defmodule ExMon do
     |> Game.start(player)
 
     Status.print_round_message(Game.info())
+
+    if Map.get(Game.info(), :turn) == :computer, do: make_computer_move(Game.info())
   end
 
   def make_move(move) do
@@ -25,11 +27,11 @@ defmodule ExMon do
     make_computer_move(Game.info())
   end
 
-  defp make_computer_move(%{turn: :computer, status: :continue}) do
+  defp make_computer_move(%{status: :game_over}), do: ""
+  defp make_computer_move(%{turn: :computer}) do
     move = {:ok, fetch_computer_move()}
     do_move(move, Game.info())
   end
-  defp make_computer_move(_), do: ""
 
   defp fetch_computer_move() do
     #chance = Enum.random(0..99)
