@@ -4,6 +4,7 @@ defmodule ExMon do
 
   @computer_name "Dragon"
   @computer_move_list [:avg, :rnd, :heal, :avg, :rnd, :avg]
+  @computer_dying_move_list [:heal, :rnd, :heal, :avg, :heal]
 
   def create_player(name, move_avg, move_rnd, move_heal) do
     Player.build(name, move_avg, move_rnd, move_heal)
@@ -28,12 +29,12 @@ defmodule ExMon do
   end
 
   defp make_computer_move(%{status: :game_over}), do: ""
-  defp make_computer_move(%{turn: :computer}) do
-    move = {:ok, fetch_computer_move()}
+  defp make_computer_move(%{turn: :computer, computer: %{life: life}}) do
+    move = {:ok, fetch_computer_move(life)}
     do_move(move, Game.info())
   end
 
-  defp fetch_computer_move() do
+  defp fetch_computer_move(life) when life > 39 do
     #chance = Enum.random(0..99)
     #cond do
     #  chance < 40 -> :avg
@@ -42,6 +43,16 @@ defmodule ExMon do
     #  true -> :avg
     #end
     Enum.random(@computer_move_list)
+  end
+  defp fetch_computer_move(life) when life < 40 do
+    #chance = Enum.random(0..99)
+    #cond do
+    #  chance < 40 -> :avg
+    #  chance > 39 and chance < 70 -> :rnd
+    #  chance > 69 -> :heal
+    #  true -> :avg
+    #end
+    Enum.random(@computer_dying_move_list)
   end
 
   defp do_move(_, %{status: :game_over}), do: Status.print_round_message(Game.info())

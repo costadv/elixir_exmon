@@ -7,6 +7,12 @@ defmodule ExMon.Game.Actions.Attack do
   def attack_opponent(opponent, move) do
     damage = calculate_power(move)
 
+    cond do
+      move == :avg -> IO.puts("!!! NORMAL ATTACK !!!\n")
+      move == :rnd -> IO.puts("!!! STRONG ATTACK !!!\n")
+      true -> :ok
+    end
+
     opponent
     |> Game.fetch_player()
     |> Map.get(:life)

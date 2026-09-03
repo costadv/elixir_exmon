@@ -7,6 +7,8 @@ defmodule ExMon.Game.Actions.Heal do
   def heal_self(player) do
     heal = Enum.random(@mheal_power)
 
+    IO.puts("!!! HEAL !!!\n")
+
     player
     |> Game.fetch_player()
     |> Map.get(:life)
